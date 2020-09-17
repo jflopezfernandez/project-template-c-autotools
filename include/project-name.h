@@ -1,6 +1,6 @@
 
-#ifndef PROJECT_INCLUDES_PROJECT_NAME_H
-#define PROJECT_INCLUDES_PROJECT_NAME_H
+#ifndef PROJECT_INCLUDES_PRIMARY_PROJECT_HEADER
+#define PROJECT_INCLUDES_PRIMARY_PROJECT_HEADER
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,5 +10,5 @@
 #include <stdarg.h>
 #include <errno.h>
 
-#endif /** PROJECT_INCLUDES_PROJECT_NAME_H */
+#endif /** PROJECT_INCLUDES_PRIMARY_PROJECT_HEADER */
 

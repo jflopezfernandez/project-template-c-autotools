@@ -1,6 +1,10 @@
 # http://www.gnu.org/software/automake
 
-Makefile.in
+# TODO: Re-enable this ignore once the
+# use of Automake has been fully
+# incorporated.
+#
+# Makefile.in
 /ar-lib
 /mdate-sh
 /py-compile
@@ -46,4 +50,9 @@ m4/lt~obsolete.m4
 # (meta build system like autotools, 
 # can automatically generate from config.status script
 # (which is called by configure script))
-Makefile
+#
+# TODO: Re-enable this ignore once Automake has been
+# fully incorporated into the project.
+#
+# Makefile
+

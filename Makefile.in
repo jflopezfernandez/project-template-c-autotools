@@ -1,10 +1,11 @@
+# @configure_input@
 
 CP              := cp -f
 RM              := rm -f
 RMDIR           := rm -rf
 MKDIR           := mkdir -p
 
-CC              := gcc
+CC              :=  gcc
 CFLAGS          := -std=gnu18 -Wall -Wextra -O3 -march=native
 CPPFLAGS        := -I./include -D_GNU_SOURCE
 LDFLAGS         := -Wl,-O -Wl,--strip-all -Wl,--reduce-memory-overheads -Wl,--relax
@@ -12,17 +13,17 @@ TARGET_ARCH     := -Wl,--format=elf64-x86-64
 LOADLIBES       := 
 LDLIBS          := 
 
-PROJECT_NAME    := project-name 
-PROJECT_VERSION := 0.0.1
-
-DIST_DIR        := $(strip $(PROJECT_NAME))-$(strip $(PROJECT_VERSION))
+PACKAGE         := @PACKAGE_NAME@
+VERSION         := @PACKAGE_VERSION@
+TARNAME         := @PACKAGE_TARNAME@
+DISTDIR         := $(strip $(TARNAME))-$(strip $(VERSION))
 
 vpath %.c src
 
 SRCS            := $(notdir $(wildcard src/*.c))
 OBJS            := $(patsubst %.c,%.o,$(SRCS))
 
-TARGET          := project-name
+TARGET          := $(PACKAGE)
 
 all: $(TARGET)
 
@@ -32,17 +33,17 @@ $(TARGET): $(OBJS)
 %.o: %.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c -o $@ $<
 
-dist: $(DIST_DIR).tar.gz
+dist: $(DISTDIR).tar.gz
 
-$(DIST_DIR).tar.gz: $(DIST_DIR)
-	tar chof - $(DIST_DIR) | gzip -9 -c > $@
-	$(RMDIR) $(DIST_DIR)
+$(DISTDIR).tar.gz: $(DISTDIR)
+	tar chof - $(DISTDIR) | gzip -9 -c > $@
+	$(RMDIR) $(DISTDIR)
 
-$(DIST_DIR): $(SRCS)
-	$(MKDIR) $(DIST_DIR)/src $(DIST_DIR)/include
-	$(CP) Makefile $(DIST_DIR)
-	$(CP) $(wildcard src/*.c) $(DIST_DIR)/src
-	$(CP) $(wildcard include/*.h) $(DIST_DIR)/include
+$(DISTDIR): $(SRCS)
+	$(MKDIR) $(DISTDIR)/src $(DISTDIR)/include
+	$(CP) Makefile $(DISTDIR)
+	$(CP) $(wildcard src/*.c) $(DISTDIR)/src
+	$(CP) $(wildcard include/*.h) $(DISTDIR)/include
 
 install: $(TARGET)
 	@echo "This target has not been implemented yet, sorry!"
@@ -63,8 +64,9 @@ clean:
 #
 #		- config.log
 # 		- config.status
+# 		- Makefile
 #
 .PHONY: distclean
 distclean: clean
-	$(RM) configure config.log config.status
+	$(RM) configure config.log config.status Makefile
 	$(RMDIR) autom4te.cache
